@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:EmployeeData.Styles">
+    
+    <Style x:Key="StyleForTextBlock">
+        
+        <Setter Property="Control.FontSize" Value="16"/>
+        <Setter Property="Control.FontFamily" Value="Technical Italic, Comic Sans MS, Arial"/>
+        <Setter Property="Control.Margin" Value="0,0,10,10"/>
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="StyleForDataGrid">
+        <Setter Property="DataGrid.AutoGenerateColumns" Value="False"/>
+        <Setter Property="DataGrid.IsReadOnly" Value="True"/>
+    </Style>
+
+    <Style x:Key="StyleForExitButton">
+        <Setter Property="Button.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid >
+                        <Ellipse Fill="OrangeRed" Stroke="Black" StrokeThickness="2"
+                 Height="40" Width="40" Margin="5"></Ellipse>
+                    </Grid >
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+   
+
+    
+
+
+
+
+
+</ResourceDictionary>

@@ -1,0 +1,82 @@
+﻿<Window x:Class="EmployeeData.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="dataGrid" Style="{StaticResource StyleForDataGrid}"  HorizontalAlignment="Left" ItemsSource="{Binding EmployeesV}" Height="300" Margin="80,68,0,0" VerticalAlignment="Top" >
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <DataGridColumnHeader Content="Имя" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <DataGridColumnHeader Content="Отдел" Background="BlanchedAlmond" FontStyle="Italic" Command="{Binding Popuphandle}"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Department}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <DataGridColumnHeader Content="Пол"  />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Gender}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Button x:Name="button" Content="Загрузить данные" Command="{Binding Download}" HorizontalAlignment="Left" Margin="459,111,0,0" VerticalAlignment="Top" Width="104" Height="30"/>
+
+        <Popup x:Name="popup1" StaysOpen="False" IsOpen="{Binding IsOpen}"  PlacementTarget="{Binding ElementName=dataGrid}"
+         Placement="Right" AllowsTransparency="True"  >
+            <DataGrid x:Name="DepartmentsData" AutoGenerateColumns="False"  >
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.Header>
+                            <DataGridColumnHeader Content="Отдел" Background="BlanchedAlmond" FontStyle="Italic" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DepartmentName}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridCheckBoxColumn Header="Вывести?" Binding="{Binding Show,Mode=TwoWay,NotifyOnSourceUpdated=True,NotifyOnTargetUpdated=True}" >
+                        <DataGridCheckBoxColumn.CellStyle>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+                                <EventSetter Event="CheckBox.Unchecked" Handler="OnChecked"/>
+                            </Style>
+                        </DataGridCheckBoxColumn.CellStyle>
+                    </DataGridCheckBoxColumn>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SourceUpdated">
+                        <i:InvokeCommandAction Command="{Binding Change1}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+        </Popup>
+        <Button x:Name="button1" Content="" Style="{StaticResource StyleForExitButton}"  Command="{Binding Shutdown}" HorizontalAlignment="Left" Margin="589,322,0,0" VerticalAlignment="Top" />
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="589,301,0,0" Style="{StaticResource StyleForTextBlock}"  Text="Выход" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
